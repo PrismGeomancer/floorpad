@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Floorpad X header</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Schibsted+Grotesk:wght@800&display=swap">
+<style>
+  html, body { margin: 0; background: #06150d; }
+  .hdr { position: relative; width: 1500px; height: 500px; overflow: hidden; background: #06150d; font-family: 'Schibsted Grotesk', system-ui, sans-serif; }
+  svg { position: absolute; inset: 0; }
+  .tag { position: absolute; left: 470px; top: 138px; color: #f2fff7; font-weight: 800; font-size: 96px; line-height: .98; letter-spacing: -.035em; }
+  .tag em { font-style: normal; color: #22c55e; text-shadow: 0 0 36px rgba(34,197,94,.45); }
+  .brand { position: absolute; left: 470px; top: 48px; display: flex; align-items: center; gap: 14px; color: #8fb3a0; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 22px; letter-spacing: .14em; }
+  .brand img { width: 56px; height: 56px; border-radius: 50%; box-shadow: 0 0 0 2px #17382a, 0 0 28px rgba(34,197,94,.35); }
+</style>
+</head>
+<body>
+<div class="hdr">
+  <svg width="1500" height="500" viewBox="0 0 1500 500" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="pool" cx="1235" cy="345" r="480" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#22c55e" stop-opacity=".38"/>
+        <stop offset=".45" stop-color="#16a34a" stop-opacity=".12"/>
+        <stop offset="1" stop-color="#06150d" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="fade" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+        <stop offset=".3" stop-color="#fff" stop-opacity="0"/>
+        <stop offset=".6" stop-color="#fff" stop-opacity="1"/>
+      </linearGradient>
+      <mask id="gridmask"><rect width="1500" height="500" fill="url(#fade)"/></mask>
+      <linearGradient id="vig" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#030c07" stop-opacity=".85"/>
+        <stop offset=".3" stop-color="#030c07" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="barA" x1="0" x2="1"><stop offset="0" stop-color="#16a34a"/><stop offset="1" stop-color="#2be072"/></linearGradient>
+      <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+      <filter id="glowS" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4"/></filter>
+    </defs>
+
+    <!-- depth: pool of light under the landing point, faint chart grid -->
+    <rect width="1500" height="500" fill="url(#pool)"/>
+    <g mask="url(#gridmask)" stroke="#17382a" stroke-width="1.5" opacity=".7">
+      <path d="M0 100H1500M0 180H1500M0 260H1500M0 340H1500M0 420H1500"/>
+      <path d="M560 0V500M720 0V500M880 0V500M1040 0V500M1200 0V500M1360 0V500"/>
+    </g>
+
+    <!-- floor: stacked bids, longest on top, bleeding off the right edge -->
+    <g stroke-linecap="round">
+      <rect x="485" y="345" width="1040" height="30" rx="15" fill="#22c55e" filter="url(#glowS)" opacity=".35"/>
+      <rect x="485" y="345" width="1040" height="30" rx="15" fill="url(#barA)"/>
+      <path d="M560 402H1370" stroke="#16a34a" stroke-width="26"/>
+      <path d="M640 440H1240" stroke="#128a3f" stroke-width="22" opacity=".95"/>
+      <path d="M740 474H1110" stroke="#0f6f33" stroke-width="18" opacity=".85"/>
+      <!-- top-edge highlight and a sheen -->
+      <path d="M500 351H1480" stroke="#7bf0a6" stroke-width="3" opacity=".55"/>
+      <path d="M1150 351H1330" stroke="#eafff2" stroke-width="3" opacity=".8"/>
+    </g>
+
+    <!-- ghost trail of earlier price action -->
+    <path d="M1010 60C1040 60 1050 200 1085 200C1110 200 1115 140 1140 140C1175 140 1200 300 1235 330C1260 350 1275 330 1300 295C1340 240 1390 195 1440 170"
+          fill="none" stroke="#22c55e" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" opacity=".4"/>
+
+    <!-- the price line: falls, hits the floor, bounces -->
+    <g fill="none" stroke="#f2fff7" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke-width="16" d="M1010 60C1040 60 1050 200 1085 200C1110 200 1115 140 1140 140C1175 140 1200 300 1235 330C1260 350 1275 330 1300 295C1340 240 1390 195 1440 170"/>
+    </g>
+    <polygon transform="translate(1448 166) rotate(-27)" points="8,0 -30,-24 -30,24" fill="#f2fff7" stroke="#f2fff7" stroke-width="10" stroke-linejoin="round"/>
+
+    <!-- impact burst at the touch point -->
+    <g stroke="#f2fff7" stroke-width="7" stroke-linecap="round">
+      <path d="M1228 296V270"/><path d="M1196 304L1178 282"/><path d="M1262 304L1282 284"/>
+    </g>
+    <g fill="#22c55e">
+      <circle cx="1235" cy="338" r="30" opacity=".25" filter="url(#glowS)"/>
+      <circle cx="1330" cy="318" r="4" opacity=".9"/><circle cx="1160" cy="326" r="3" opacity=".7"/><circle cx="1395" cy="296" r="3" opacity=".6"/>
+    </g>
+
+    <!-- left third: calm, darkened for the avatar -->
+    <rect width="620" height="500" fill="url(#vig)"/>
+  </svg>
+
+  <div class="brand"><img src="../logo.png" alt="">FLOORPAD</div>
+  <div class="tag">Be the floor.<br><em>Get paid.</em></div>
+</div>
+</body>
+</html>

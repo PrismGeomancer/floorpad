@@ -1,0 +1,26 @@
+{
+  "name": "floorpad",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test keeper/test/",
+    "round": "node keeper/round.js",
+    "sync-config": "node scripts/sync-config.mjs",
+    "serve": "node scripts/serve.mjs",
+    "build-pages": "node scripts/build-pages.mjs",
+    "market": "node keeper/market.js",
+    "dev": "node scripts/dev.mjs"
+  },
+  "dependencies": {
+    "@pump-fun/pump-sdk": "4.3.1",
+    "@solana/web3.js": "1.99.0"
+  },
+  "overrides": {
+    "rpc-websockets": {
+      "uuid": "^9.0.1"
+    }
+  }
+}

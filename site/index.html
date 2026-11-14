@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" class="loading">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Floorpad · Be the floor. Get paid.</title>
+  <meta name="description" content="Place a limit buy under $FLOOR on Jupiter. Every round the creator fees are split in SOL across the open bids, weighted by size, distance and age.">
+  <meta property="og:title" content="Floorpad · Be the floor. Get paid.">
+  <meta property="og:description" content="Place a limit buy under $FLOOR on Jupiter. Every round the creator fees are split in SOL across the open bids, weighted by size, distance and age.">
+  <meta property="og:image" content="img/og.png">
+  <meta property="og:image:alt" content="A price line bouncing off a floor made of stacked bids.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f3f8f4">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <div id="loader" class="loader" role="status"><img src="img/logo-256.png" width="72" height="72" alt=""><span data-copy="loader"></span></div>
+  <a class="skip" href="#stats">Skip to stats</a>
+
+  <!-- Nav: sticky, at the top -->
+  <nav class="nav" id="nav" aria-label="Sections">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top">
+        <img src="img/logo-128.png" width="44" height="44" alt="">
+        <span class="brand-txt"><b data-copy="nav.brand"></b><small id="nav-status"></small></span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#your-bids" data-copy="nav.yourBids"></a></li>
+        <li><a href="#how" data-copy="nav.how"></a></li>
+        <li><a href="#wall" data-copy="nav.wall"></a></li>
+        <li><a href="#floors" data-copy="nav.floors"></a></li>
+        <li><a href="#bidders" data-copy="nav.bidders"></a></li>
+        <li><a href="#rules" data-copy="nav.rules"></a></li>
+        <li id="nav-launchpad" hidden><a href="#launchpad" data-copy="nav.launchpad"></a></li>      </ul>
+      <div class="nav-right">
+        <div class="cachip" id="ca-chip" hidden>
+          <span class="cachip-k" data-copy="header.ca"></span>
+          <span class="cachip-v mono" id="ca-short"></span>
+          <button type="button" class="cachip-b" id="ca-copy" data-copy="header.copy"></button>
+        </div>
+        <a class="btn btn-sm btn-accent" id="nav-buy" target="_blank" rel="noopener" hidden data-copy="header.buy"></a>
+        <a class="xbtn" id="nav-x" target="_blank" rel="noopener" hidden>
+          <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8L17.8 3Zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5Z"/></svg>
+          <span data-copy="header.x"></span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 1. Hero -->
+  <header class="hero-wrap" id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-head">
+        <div class="hero-copy">
+          <p class="eyebrow" id="hero-eyebrow"></p>
+          <h1 id="hero-title" class="hero-title"><span data-copy="hero.taglineA"></span> <em data-copy="hero.taglineB"></em></h1>
+          <p class="hero-sub" id="hero-lead"></p>
+        </div>
+        <img class="hero-logo" src="img/logo-256.png" width="152" height="152" alt="">
+      </div>
+      <ol class="beats" id="beats"></ol>
+
+      <div class="drag-head">
+        <h2 class="drag-title" data-copy="hero.headline"></h2>
+        <p class="drag-sub" data-copy="hero.sub"></p>
+        <p class="hero-preview pending" id="hero-preview"><span class="coin-fallback" style="width:24px;height:24px"></span>&nbsp;</p>
+      </div>
+      <div class="bidboard">
+        <div class="chart" id="chart">
+          <svg id="chart-svg" aria-hidden="true" focusable="false"></svg>
+          <div class="bidline" id="bidline">
+            <div class="bidline-rule"></div>
+            <div class="bidline-handle" id="bid-handle" role="slider" tabindex="0"
+                 aria-valuemin="0" aria-valuemax="45" aria-valuenow="4" aria-orientation="vertical">
+              <span class="grip" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <div class="readout" id="readout">
+          <p class="ro-pct" id="ro-pct"></p>
+          <p class="ro-mult" id="ro-mult"></p>
+          <div class="ro-extra" id="ro-extra"></div>
+          <p class="ro-fill" id="ro-fill"></p>
+        </div>
+      </div>
+      <p class="legend pending" id="chart-legend" data-copy="hero.legend"></p>
+
+      <div class="hero-foot">
+        <div class="hero-actions">
+          <a class="btn btn-primary" id="btn-bid" target="_blank" rel="noopener" hidden data-copy="hero.primary"></a>
+          <button class="btn btn-ghost" id="btn-ca" type="button" hidden data-copy="hero.copyCa"></button>
+          <a class="btn btn-ghost" id="btn-buy" target="_blank" rel="noopener" hidden data-copy="hero.buy"></a>
+        </div>
+      </div>
+      <p class="smallprint" data-copy="hero.small"></p>
+    </section>
+  </header>
+
+  <main>
+   <div class="wrap">
+    <!-- 3. Dashboard -->
+    <section id="stats" class="dash" aria-label="Live stats">
+      <p class="notice" id="stale" hidden></p>
+      <p class="notice" id="dryrun" hidden data-copy="stats.dryRun"></p>
+      <div class="dash-soon" id="dash-soon" hidden></div>
+      <div class="dash-timer" id="dash-timer">
+        <p class="timer-text"><span id="timer-text"></span> <span class="pill" id="mode-pill" hidden></span></p>
+        <div class="timer-bar" aria-hidden="true"><i id="timer-fill"></i></div>
+      </div>
+      <dl class="kpis" id="stat-grid"></dl>
+      <div class="dash-market pending" id="dash-market">
+        <p class="dash-label" data-copy="dash.across"></p>
+        <dl class="kpis kpis-sm" id="market-grid"></dl>
+      </div>
+      <div class="paybar" id="paybar" hidden></div>
+    </section>
+
+    <div class="twocol">
+      <section id="your-bids" class="blk checker" aria-labelledby="checker-h">
+        <div class="shead">
+          <h2 id="checker-h" data-copy="checker.heading"></h2>
+          <p data-copy="checker.lede"></p>
+        </div>
+        <form class="check" id="check-form" novalidate>
+          <label class="sr" for="wallet-in" data-copy="checker.placeholder"></label>
+          <input id="wallet-in" name="wallet" autocomplete="off" spellcheck="false" inputmode="text">
+          <button class="btn btn-dark" type="submit" data-copy="checker.button"></button>
+        </form>
+        <div id="check-out" aria-live="polite"></div>
+      </section>
+
+      <section id="tape" class="blk tape" aria-labelledby="tape-h">
+        <div class="shead">
+          <h2 id="tape-h" data-copy="tape.heading"></h2>
+          <p data-copy="tape.lede"></p>
+        </div>
+        <ol class="tape-list" id="tape-list" tabindex="0" aria-labelledby="tape-h"></ol>
+      </section>
+    </div>
+
+    <hr class="floorline">
+
+    <!-- 4. How to bid -->
+    <section id="how" class="blk" aria-labelledby="how-h">
+      <div class="shead"><h2 id="how-h" data-copy="how.heading"></h2></div>
+      <ol class="steps" id="steps"></ol>
+      <p class="fine" data-copy="how.note"></p>
+    </section>
+
+   </div>
+
+   <div class="band" id="band">
+    <div class="wrap">
+      <section class="bignum" id="bignum" aria-label="Floors on Solana right now" hidden>
+        <p class="bn-v" id="bn-v"></p>
+        <p class="bn-s" id="bn-s"></p>
+      </section>
+
+      <!-- 5. The wall -->
+      <section id="wall" class="blk" aria-labelledby="wall-h">
+        <div class="shead">
+          <h2 id="wall-h" class="h-tag"><span data-copy="wall.heading"></span><span class="coin-tag" id="wall-preview" hidden></span></h2>
+          <p data-copy="wall.lede"></p>
+        </div>
+        <div class="depth" id="wallbox"></div>
+      </section>
+
+      <!-- 5b. Floors on Solana (real bids under other coins) -->
+      <section id="floors" class="blk" aria-labelledby="floors-h">
+        <div class="shead">
+          <h2 id="floors-h" data-copy="floors.heading"></h2>
+          <p data-copy="floors.lede"></p>
+        </div>
+        <p class="floors-totals" id="floors-totals"></p>
+        <ol class="floors" id="floors-list"></ol>
+        <button type="button" class="btn btn-line floors-more" id="floors-more" hidden aria-controls="floors-list"></button>
+        <p class="tfoot" id="floors-foot"></p>
+      </section>
+    </div>
+   </div>
+
+   <div class="wrap">
+    <!-- 6. Formula -->
+    <section id="formula" class="blk" aria-labelledby="formula-h">
+      <div class="shead"><h2 id="formula-h" data-copy="formula.heading"></h2></div>
+      <p class="formula" id="formula-line"></p>
+      <dl class="mults" id="mults"></dl>
+      <p class="example" id="example"></p>
+      <p class="fine" data-copy="formula.footnote"></p>
+    </section>
+
+    <!-- 7. Launchpad -->
+    <section id="launchpad" class="blk padcta" hidden></section>
+
+    <hr class="floorline">
+
+    <!-- 8. Bidders -->
+    <section id="bidders" class="blk" aria-labelledby="bidders-h">
+      <div class="shead">
+        <h2 id="bidders-h" class="h-tag"><span data-copy="bidders.heading"></span><span class="coin-tag" id="bidders-preview" hidden></span></h2>
+        <label class="find-wrap"><span class="sr" data-copy="bidders.find"></span><input class="find" id="find" type="search" autocomplete="off" spellcheck="false"></label>
+      </div>
+      <div class="tablebox" id="bidders-box" tabindex="0" aria-labelledby="bidders-h"></div>
+      <p class="tfoot" id="bidders-foot"></p>
+    </section>
+
+    <!-- 9. Payouts -->
+    <section id="payouts" class="blk" aria-labelledby="payouts-h">
+      <div class="shead">
+        <h2 id="payouts-h" class="h-tag"><span data-copy="payouts.heading"></span><span class="coin-tag" id="payouts-preview" hidden></span></h2>
+        <p data-copy="payouts.lede"></p>
+      </div>
+      <div class="latest" id="latest-payout" hidden></div>
+      <div class="tablebox" id="payouts-box" tabindex="0" aria-labelledby="payouts-h"></div>
+      <p class="tfoot" id="payouts-foot"></p>
+    </section>
+
+    <hr class="floorline">
+
+    <!-- 10. Rules -->
+    <section id="rules" class="blk" aria-labelledby="rules-h">
+      <div class="shead"><h2 id="rules-h"><span data-copy="rules.headingA"></span> <em data-copy="rules.headingB"></em></h2></div>
+      <ul class="rules" id="rules-list"></ul>
+    </section>
+   </div>
+  </main>
+
+  <!-- 11. Footer -->
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <div class="foot-brand"><img src="img/logo-128.png" width="48" height="48" alt=""><p class="foot-line" data-copy="footer.line"></p><span class="foot-mascot" id="foot-mascot" aria-hidden="true"></span></div>
+      <p class="foot-risk" data-copy="footer.risk"></p>
+      <ul class="foot-links" id="foot-links"></ul>
+    </div>
+  </footer>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+  <noscript><p class="wrap">Floorpad needs JavaScript to read the live rounds.</p></noscript>
+</body>
+</html>
